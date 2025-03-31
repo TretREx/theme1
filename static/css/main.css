@@ -1,0 +1,99 @@
+main {
+    display: flex;
+    flex: 1;
+}
+
+.sidenav {
+    width: 200px;
+    padding: 15px;
+}
+
+.sidenav h2 {
+    text-align: center;
+    margin: 0;
+    padding: 10px 0;
+    border-radius: 10px;
+}
+
+.sidenav ul {
+    list-style: none;
+    padding: 0;
+}
+
+.sidenav ul li {
+    padding: 10px;
+    margin: 13px 0;
+    text-align: center;
+    cursor: pointer;
+    border-radius: 8px;
+}
+
+.tub {
+    width: 25px;
+    height: 25px;
+}
+
+.dashboard {
+    flex: 1;
+    padding: 10px;
+}
+
+.dashboard h2 {
+    margin: 0 0 20px;
+    text-align: center;
+}
+
+.data {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+.data-item {
+    background-color: #7cb0ea;
+    padding: 20px;
+    margin: 10px;
+    flex: 0 1 calc(33% - 20px);
+    text-align: center;
+    border-radius: 8px;
+}
+
+.data-item-red {
+    background-color: #ea5d5d;
+    padding: 20px;
+    margin: 10px;
+    flex: 0 1 calc(33% - 20px);
+    text-align: center;
+    border-radius: 8px;
+}
+
+.data-item-red .label {
+    display: block;
+    margin-bottom: 10px;
+    font-size: 1.2em;
+}
+
+.data-item-red .value {
+    font-size: 2em;
+    font-weight: bold;
+}
+
+.data-item .label {
+    display: block;
+    margin-bottom: 10px;
+    font-size: 1.2em;
+}
+
+.data-item .value {
+    font-size: 2em;
+    font-weight: bold;
+}
+
+.growth-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 20px;
+    padding: 20px;
+    background-color: rgba(255, 255, 255, 0.7);
+    border-radius: 15px;
+}

@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block header %}
+<style>
+    header {
+        display: flex;
+        justify-content: center; /* 关键修改：将 space-between 改为 center */
+        align-items: center;
+        padding: 10px 20px;
+    }
+
+    header .logo {
+        font-size: 1.5em;
+        font-weight: bold;
+        cursor: pointer;
+        color: beige;
+    }
+
+    header .logo:hover, header .logo.active {
+        background-color: #4CAF50;
+        color: white;
+    }
+
+    /* 如果有其他元素（如用户信息），确保它们不影响居中 */
+    header .user-info, .date-info {
+        font-size: 1em;
+        position: absolute; /* 可选：如果希望其他元素绝对定位在两侧 */
+        right: 20px;
+    }
+    header .user-info {
+        left: 20px;
+        right: auto;
+    }
+</style>
+
+<header>
+    <div class="logo">植物养护管家</div>
+</header>
+{% endblock %}

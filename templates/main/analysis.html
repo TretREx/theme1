@@ -1,0 +1,94 @@
+
+<div id="statistical-analysis" class="content-section">
+    <h2 class="section-title">统计分析</h2>
+    <div class="analysis-container">
+        <div class="charts-column">
+            <div class="chart-item">
+                <canvas id="combinedChart"></canvas>
+            </div>
+        </div>
+        <div class="analysis-column">
+            <div class="analysis-item">
+                <h3>高温时</h3>
+                <p>浇月季花需要保持土壤湿润，但不要过度浇水。通常，每周浇水一次足够。</p>
+                <p>在炎热的夏季，您可能需要更频繁地浇水。</p>
+                <p>观察月季花的叶子和花朵。如果叶子变黄或花朵凋谢，可能需要调整浇水量。</p>
+            </div>
+            <div class="analysis-item">
+                <h3>低温时</h3>
+                <p>确保盆土湿润但不过于湿。将其放置在阳光充足的位置，但在夏季强光时要注意遮阴，以防止叶片受损。</p>
+                <p>月季花的施肥要"薄肥勤施"。春季发芽前施肥一次，含苞欲放时增施一次淡液肥。</p>
+                <p>夏季花朵凋谢后，施一次腐熟的液肥，促进秋季开花。</p>
+                <p>冬季可在根部施少量有机肥，增强植株的抗病能力。</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+/* Analysis page layout */
+.section-title {
+    text-align: center;
+    margin-bottom: 20px;
+    color: chartreuse;
+}
+
+.analysis-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    margin-top: 20px;
+    height: calc(100vh - 200px);
+}
+
+.charts-column {
+    flex: 2;
+    min-height: 60vh;
+}
+
+.chart-item {
+    background: transparent;
+    padding: 15px;
+    height: 100%;
+}
+
+.chart-item canvas {
+    width: 100% !important;
+    height: 100% !important;
+}
+
+.analysis-column {
+    display: flex;
+    gap: 20px;
+}
+
+.analysis-item {
+    background: transparent;
+    padding: 15px;
+    flex: 1;
+}
+
+.analysis-item h3 {
+    margin-top: 0;
+    color: #2c3e50;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 10px;
+    font-size: 1.1rem;
+}
+
+.analysis-item p {
+    margin: 8px 0;
+    line-height: 1.5;
+    font-size: 0.9rem;
+}
+
+@media (min-width: 992px) {
+    .analysis-container {
+        flex-direction: row;
+    }
+    .analysis-column {
+        flex-direction: column;
+        flex: 1;
+    }
+}
+</style>

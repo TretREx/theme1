@@ -1,0 +1,74 @@
+<div id="main" class="content-section">
+    <div class="video">
+
+        <div class="sidenav">
+            <h2 class="text">近一周数据 / 平均温度°C</h2>
+            <ul>
+                <li>08/16 周四 <img src="{{ url_for('static', filename='img/中温.svg') }}" alt="Thermometer Icon" class="tub"> 21°/32°</li>
+                <li>08/17 周五 <img src="{{ url_for('static', filename='img/温度计气温.svg') }}" alt="Thermometer Icon" class="tub"> 23°/26°</li>
+                <li>08/18 周六 <img src="{{ url_for('static', filename='img/温度计气温.svg') }}" alt="Thermometer Icon" class="tub"> 22°/27°</li>
+                <li>08/19 周日 <img src="{{ url_for('static', filename='img/温度计气温.svg') }}" alt="Thermometer Icon" class="tub"> 23°/27°</li>
+                <li>08/20 周一 <img src="{{ url_for('static', filename='img/温度计气温.svg') }}" alt="Thermometer Icon" class="tub"> 23°/30°</li>
+                <li>08/21 周二 <img src="{{ url_for('static', filename='img/中温.svg') }}" alt="Thermometer Icon" class="tub"> 22°/29°</li>
+                <li>08/22 周三 <img src="{{ url_for('static', filename='img/低温.svg') }}" alt="Thermometer Icon" class="tub"> 23°/26°</li>
+            </ul>
+        </div>
+
+        <div class="production">
+            <h2>产品介绍</h2>
+            <div class="video-player">
+                <div class="video-container">
+                    <video id="video" src="{{ url_for('static', filename='img/MP4.mp4') }}"></video>
+                </div>
+                
+                <div class="controls">
+                    <button class="btn play-btn">▶</button>
+                    
+                    <div class="progress-container">
+                        <div class="progress"></div>
+                    </div>
+                    
+                    <span class="time current-time">00:00</span>
+                    <span class="time">/</span>
+                    <span class="time duration">00:00</span>
+                    
+                    <div class="volume-container">
+                        <button class="btn volume-btn">🔊</button>
+                        <input type="range" class="volume-slider" min="0" max="1" step="0.1" value="1">
+                    </div>
+                    
+                    <button class="btn fullscreen-btn">⛶</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <style>
+        .text {
+            /*居中*/
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+            font-size: 15px;
+            color: #11ec20;
+        }
+        .video {
+            display: flex;
+            gap: 40px;
+            width: 100%;
+            padding: 20px;
+            align-items: flex-start;
+        }
+        .sidenav {
+            flex: 3;
+            max-width: 30%;
+        }
+        .production {
+            flex: 7;
+            min-width: 70%;
+        }
+    </style>
+    
+</div>

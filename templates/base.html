@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>智能植物养护系统</title>
+    <!-- 外部CSS -->
+
+    {% block stylesheets %}{% endblock %}
+    <!-- 内联CSS -->
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: url("{{ url_for('static', filename='img/background1.jpg') }}") center/cover fixed;
+            overflow: hidden;
+            height: 100vh;
+        }
+
+        #rainCanvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            mix-blend-mode: screen;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+        }
+
+        .content-section {
+            display: none;
+        }
+
+        .content-section.active {
+            display: block;
+        }
+    </style>
+    
+</head>
+
+<body>
+    <canvas id="rainCanvas"></canvas>
+    <div class="container">
+        {% block header %}{% endblock %}
+        {% block nav %}{% endblock %}
+        
+        <main>
+            {% block content %}{% endblock %}
+        </main>
+    </div>
+    {% block scripts %}{% endblock %}
+</body>
+
+</html>

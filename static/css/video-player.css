@@ -1,0 +1,74 @@
+/* 容器样式 */
+.video-player {
+    width: 1000px;
+    margin: 20px auto;
+    background: transparent;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+/* 视频容器 */
+.video-container {
+    width: 100%;
+}
+
+video {
+    width: 100%;
+    display: block;
+}
+
+/* 控制栏样式 */
+.controls {
+    padding: 10px;
+    color: white;
+}
+
+/* 按钮样式 */
+.btn {
+    background: none;
+    border: none;
+    color: white;
+    cursor: pointer;
+    padding: 5px;
+    margin: 0 5px;
+}
+
+/* 进度条容器 */
+.progress-container {
+    height: 5px;
+    background: #ffffff;
+    margin: 10px 0;
+    cursor: pointer;
+    border-radius: 3px;
+}
+
+/* 进度条 */
+.progress {
+    height: 100%;
+    background: #ff4444;
+    border-radius: 3px;
+    width: 0;
+    transition: width 0.1s linear;
+}
+
+/* 时间显示 */
+.time {
+    margin: 0 10px;
+    font-size: 0.9em;
+}
+
+/* 音量控制 */
+.volume-container {
+    display: flex;
+    align-items: center;
+}
+
+.volume-slider {
+    width: 100px;
+    margin-left: 5px;
+}
+
+/* 全屏按钮 */
+.fullscreen-btn {
+    float: right;
+}

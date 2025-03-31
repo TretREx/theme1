@@ -1,0 +1,123 @@
+<!-- ai.html -->
+
+<div id="chat-container" class="content-section">
+  <div class="chat-box">
+    <div class="chat-header">
+      <img src="{{ url_for('static', filename='img/人工智能分析.svg') }}" weight="50px" height="50px" alt="AI Icon" class="ai-icon">
+      <span class="ai-name">智能养护助手</span>
+    </div>
+    
+  <div id="chat-messages" class="chat-messages">
+      <!-- 消息内容将在此处显示 -->
+      <div class="message-template user-message">
+          <img src="{{ url_for('static', filename='img/温度计.svg') }}" class="message-avatar">
+          <div class="message-content"></div>
+      </div>
+      <div class="message-template ai-message">
+          <img src="{{ url_for('static', filename='img/温度计.svg') }}" class="message-avatar">
+          <div class="message-content"></div>
+      </div>
+  </div>
+  
+    <div class="chat-controls">
+      <div class="input-group">
+        <input type="text" id="user-input" placeholder="输入您的问题..." class="user-input">
+        <div class="button-group">
+          <label for="file-input" class="file-label">
+            <img src="{{ url_for('static', filename='img/照片.svg') }}" weight="20px" height="20px" alt="Upload" class="icon">
+          </label>
+          <input type="file" id="file-input" class="file-input" accept="image/*">
+          <button class="send-button">
+            <img class="send-icon" src="{{ url_for('static', filename='img/发送.svg') }}"  weight="20px" height="20px" alt="Send">
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<style>
+
+  .chat-box
+  {
+    /*背景颜色*/
+    background-color: rgba(245, 245, 245, 0.8);
+    /*边框*/
+    border: 1px solid #000000;
+    /*圆角*/
+    border-radius: 10px;
+    /*宽度*/
+    width: 70vw;
+    /*高度*/
+    height: 800px;
+    /*垂直排列*/
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 20px;
+    /*水平居中*/
+    margin: 0 auto;
+    /*最大宽度限制*/
+    max-width: 1200px;
+    margin-left: 20%;
+  }
+
+  .ai-name
+  {
+    /*字体颜色*/
+    color: #00ccff;    
+    /*字体大小*/
+    font-size: 32px;  
+      
+  }
+
+  .chat-header
+  {
+    /*水平分布*/
+    display: flex;
+  }
+
+  .chat-messages {
+    flex: 1;
+    overflow-y: auto;
+    padding: 10px;
+  }
+
+  .message-template {
+    display: none;
+  }
+
+  .user-message, .ai-message {
+    display: flex;
+    margin-bottom: 15px;
+    align-items: flex-start;
+  }
+
+  .user-message {
+    flex-direction: row-reverse;
+  }
+
+  .message-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin: 0 10px;
+  }
+
+  .message-content {
+    max-width: 70%;
+    padding: 10px 15px;
+    border-radius: 18px;
+    word-wrap: break-word;
+  }
+
+  .user-message .message-content {
+    background-color: #dcf8c6;
+  }
+
+  .ai-message .message-content {
+    background-color: #ffffff;
+  }
+
+</style>

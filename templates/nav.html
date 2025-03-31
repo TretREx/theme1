@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% block nav %}
+<style>
+    nav ul {
+        display: flex;
+        list-style: none;
+        padding: 10px 0;       /* 调整上下padding，移除左右padding */
+        margin: 0;
+        width: 100%;           /* 确保ul填满容器 */
+    }
+
+    nav ul li {
+        flex: 1;               /* 每个li项等分剩余空间 */
+        margin: 0;             /* 移除原有margin */
+        text-align: center;    /* 文字居中 */
+    }
+
+    a.li {
+        display: block;        /* 块级元素填满li */
+        color: #17b017;
+        padding: 10px 15px;
+        text-decoration: none;
+        border-radius: 5px;
+        font-weight: bold;
+        transition: background-color 0.3s ease;
+    }
+
+    a.li:hover {
+        background-color: #7cb0ea;
+    }
+
+    a.li:active,
+    a.li:focus {
+        background-color: #5aa6f3;
+        outline: none;
+    }
+</style>
+
+<nav>
+    <ul>
+        <li><a href="#main" data-target="main" class="li">主页</a></li>
+        <li><a href="#basic-info" data-target="basic-info" class="li">基本信息</a></li>
+        <li><a href="#growth-history" data-target="growth-history" class="li">成长历程</a></li>
+        <li><a href="#statistical-analysis" data-target="statistical-analysis" class="li">统计分析</a></li>
+        <li><a href="#chat-container" data-target="chat-container" class="li">AI养护建议</a></li>
+    </ul>
+</nav>
+
+{% endblock %}

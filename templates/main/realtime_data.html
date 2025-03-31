@@ -1,0 +1,217 @@
+<div id="basic-info" class="content-section">
+    <div class="horizontal-container">
+        <div class="data">
+            <h2 class="title">实时数据</h2>
+            <div class="item1">
+              <div class="data-item">
+                <span class="label">温度/℃</span>
+                <span class="value">28</span>
+              </div>
+              <div class="data-item">
+                <span class="label">湿度%</span>
+                <span class="value">44</span>
+              </div>
+              <div class="data-item">
+                <span class="label">土壤温度/℃</span>
+                <span class="value">18</span>
+              </div>
+              <div class="data-item">
+                <span class="label">二氧化碳ppm</span>
+                <span class="value">637</span>
+              </div>
+              <div class="data-item">
+                <span class="label">土壤水分%</span>
+                <span class="value">74</span>
+              </div>
+              <div class="data-item">
+                <span class="label">光照W/m²</span>
+                <span class="value">15.2</span>
+              </div>
+              <div class="data-item-red">
+                <span class="label">水位高度/%</span>
+                <span class="value">20</span>
+              </div>
+              <div class="data-item">
+                <span class="label">空气质量</span>
+                <span class="value">优</span>
+              </div>
+              <!-- 如果需要九宫格，保证有9个格子，可以添加一个空白项 -->
+              <div class="data-item empty"></div>
+            </div>
+          </div>
+
+        <div class="suggest-container">
+          <div class="card-header">养护建议</div>
+          <div class="card-content">
+            <div class="grid-item">
+                <div class="icon">
+                    <img src="{{ url_for('static', filename='img/浇水.svg') }}" class="tu" alt="浇水">
+                    <div class="text">适宜浇水</div>
+                </div>
+            </div>
+            <div class="grid-item">
+                <div class="icon">
+                    <img src="{{ url_for('static', filename='img/太阳阳光亮度.svg') }}" class="tu" alt="防晒">
+                    <div class="text">注意防晒</div>
+                </div>
+            </div>
+            <div class="grid-item">
+                <div class="icon">
+                    <img src="{{ url_for('static', filename='img/通风风扇.svg') }}" class="tu" alt="通风">
+                    <div class="text">流通换气</div>
+                </div>
+            </div>
+            <div class="grid-item">
+                <div class="icon">
+                    <img src="{{ url_for('static', filename='img/水位点.svg') }}" class="tu" alt="水位">
+                    <div class="text">水位高度适宜</div>
+                </div>
+            </div>
+            <div class="grid-item">
+                <div class="icon">
+                    <img src="{{ url_for('static', filename='img/鱼饲料.svg') }}" class="tu" alt="饲料">
+                    <div class="text">投喂饲料</div>
+                </div>
+            </div>
+            <div class="grid-item">
+                <div class="icon">
+                    <img src="{{ url_for('static', filename='img/施肥.svg') }}" class="tu" alt="施肥">
+                    <div class="text">较宜施肥</div>
+                </div>
+            </div>
+            <div class="grid-item">
+                <div class="icon">
+                    <img src="{{ url_for('static', filename='img/温度计.svg') }}" class="tu" alt="温度">
+                    <div class="text">温度过高</div>
+                </div>
+            </div>
+            <div class="grid-item">
+                <div class="icon">
+                    <img src="{{ url_for('static', filename='img/修剪.svg') }}" class="tu" alt="修剪">
+                    <div class="text">适宜修剪</div>
+                </div>
+            </div>
+            <div class="grid-item">
+                <div class="icon">
+                    <img src="{{ url_for('static', filename='img/水温计.svg') }}" class="tu" alt="水温">
+                    <div class="text">水温适宜</div>
+                </div>
+            </div>
+          </div>
+        </div>
+      </div>
+</div>
+
+
+    <style>
+        .text {
+            font-size: 18px;
+            font-family: "KaiTi", sans-serif;
+            color: #33ff00;
+        }
+       .title {
+            text-align: center;
+            font-family: "KaiTi", sans-serif;
+            font-size: 24px;
+            color: chartreuse;
+        }
+
+        .card-header{
+          text-align: center;
+          font-family: "KaiTi", sans-serif;
+          font-size: 24px;
+          color:chartreuse;
+          font-weight: bold;
+          margin-bottom: 10%;
+        }
+
+        .suggest-container {
+            /*占比50%*/
+            width: 50%;
+            /*边框阴影*/
+            box-shadow: 0px 0px 10px #888888;
+            border-radius: 10px;
+          }
+
+        .card-content{
+          /*九宫格*/
+          display: grid;
+          grid-template-columns: repeat(3, 1fr); /* 三列 */
+          gap: 10px; /* 格子间距 */
+          margin-top: 5%;
+          margin-left: 5%;
+          margin-right: 5%;
+          /*边框阴影*/
+          box-shadow: 0px 0px 10px #888888;
+          border-radius: 10px;
+        }
+
+        .grid-item {
+          color: #33ff00;
+        }
+
+        .tu {
+          /*尺寸*/
+          width: 100px;
+          height: 100px;
+          /*间隔*/
+          margin-top: 5%;
+          margin-bottom: 5%;
+          margin-left: 5%;
+          margin-right: 5%;
+        }
+
+        .data {
+            box-shadow: 0px 0px 10px #888888;
+            border-radius: 10px;
+        }
+
+        .item1 {
+          margin-top: 5%;
+          margin-left: 5%;
+          margin-right: 5%;
+          margin-bottom: 8%;
+          border-radius: 10px;
+          box-shadow: 0px 0px 10px #888888;
+          font-size: 24px;
+          font-family: "KaiTi", sans-serif;
+          display: grid;
+          grid-template-columns: repeat(3, 1fr); /* 三列 */
+          gap: 5px; /* 格子间距 */
+        }
+
+        /* 可选：给每个数据项添加边框、内边距等样式 */
+        .data-item, .data-item-red, .empty {
+            color: rgb(16, 205, 23);
+            background: transparent; /* 设置透明背景 */
+            padding: 25px;
+            text-align: center;
+            border-radius: 10px;
+        }
+
+        /* 如果需要区分红色警示项 */
+        .data-item-red {
+        background: #e4c2c2;
+        }
+
+        .horizontal-container {
+          justify-content: center;
+          /*宽度*/
+          width: 100%;
+          /*高度*/
+          height: 100%;
+          /*边框*/
+          border: 1px solid #888888;
+          /*圆角*/
+          border-radius: 10px;
+          /*水平排列*/
+          display: flex;
+          /*盒子间隔*/
+          margin-bottom: 0%;
+          margin-left: 20%;
+          margin-right: 20%;
+        }
+
+    </style>
+
+</div>

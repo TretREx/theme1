@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="dashboard" id="content">
+    {% block home %}
+        {% include 'main/home.html' %}
+    {% endblock %}
+
+    {% block realtime_data %}
+        {% include 'main/realtime_data.html' %}
+    {% endblock %}
+
+    {% block growth_history %}
+        {% include 'main/growth_history.html' %}
+    {% endblock %}
+
+    {% block analysis %}
+        {% include 'main/analysis.html' %}
+    {% endblock %}
+
+    <!-- {% block ai %}
+        {% include 'main/ai.html' %}
+    {% endblock %} -->
+</section>
+{% endblock %}
