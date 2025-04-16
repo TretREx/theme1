@@ -1,7 +1,9 @@
 <!DOCTYPE html>
 <html>
 <head>
+	<meta charset="UTF-8">
 	<title>我的主页</title>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </head>
 <body>
 	<div style="display: flex; width: 100%; height: 100%;">
@@ -9,12 +11,13 @@
             <div style="width: 100%; height: 360px; box-shadow: 0px 0px 10px rgba(45, 50, 45, 0.7); background-color: #b3f8bb;">
                 <div style="width: 100%; height: 20%; display: flex; margin-left: 10%; align-items: center; font-size: 10px; color:
                              #ffffff; font-family: '宋体';">
-                    <img src="imga" alt="imga">
+                    <i class="fas fa-leaf" style="font-size: 40px; color: white; margin-right: 10px;"></i>
                     <h1>花迹</h1>
                 </div>
                 <div style="width: 100%; height: 50%; display: flex; align-items: center;">
                     <div style="width: 80px; height: 80px; background-image: url('img/a.webp'); background-size: cover;
-                                margin-left: 10%; border-radius: 5px;"></div>     
+                                margin-left: 10%; border-radius: 50%; border: 3px solid white; 
+                                box-shadow: 0 0 10px rgba(0,0,0,0.3); padding: 3px;"></div>
                     <div style="margin-left: 2%;">
                         <h1 style="color: white;font-size: 18px;margin-left: 2%;"> Flower </h1>
                         <h2 style="color: white;font-size: 18px;margin-left: 2%; word-break: keep-all;">养花小萌新</h2>
@@ -22,7 +25,7 @@
                 </div>
                 <div style="width: 100%; height: 30%; display: flex; justify-content: center; align-items: center;
                             font-size: 10px; color: #ffffff; font-family: '宋体';">
-                    <img src="imgb" alt="imgb">
+                    <i class="fas fa-calendar-alt" style="font-size: 20px; color: white; margin-right: 10px;"></i>
                     <h1>已陪伴你49天</h1>
                 </div>
             </div>
@@ -30,31 +33,31 @@
                     #ffffff; margin-bottom: 5%; display: flex; flex-direction: column; justify-content: center; align-items: center;">
                 <a href="home.html" style="text-decoration: none;">
                     <div style="display: flex;margin-top: 5%;">
-                        <img src="imgc" alt="imgc">
+                        <i class="fas fa-home" style="margin-top: 17%;font-size:20px;color:#595959;"></i>
                         <h1 class="nav_text">我的主页</h1>
                     </div>
                 </a>
                 <a href="info.html" style="text-decoration: none;">
                     <div style="display: flex;margin-top: 5%;">
-                        <img src="imgc" alt="imgc">
+                        <i class="fas fa-info-circle" style="margin-top: 17%;font-size:20px;color:#595959;"></i>
                         <h1 class="nav_text">基本信息</h1>
                     </div>
                 </a>
                 <a href="growth.html" style="text-decoration: none;">
                     <div style="display: flex;margin-top: 5%;">
-                        <img src="imgc" alt="imgc">
+                        <i class="fas fa-seedling" style="margin-top: 17%;font-size:20px;color:#595959;"></i>
                         <h1 class="nav_text">成长历程</h1>
                     </div>
                 </a>
                 <a href="statistic.html" style="text-decoration: none;">
                     <div style="display: flex;margin-top: 5%;">
-                        <img src="imgc" alt="imgc">
+                        <i class="fas fa-chart-line" style="margin-top: 17%;font-size:20px;color:#595959;"></i>
                         <h1 class="nav_text">统计分析</h1>
                     </div>
                 </a>
                 <a href="ai.html" style="text-decoration: none;">
                     <div style="display: flex;margin-top: 5%;">
-                        <img src="imgc" alt="imgc">
+                        <i class="fas fa-robot" style="margin-top: 17%; font-size:20px;color:#595959;"></i>
                         <h1 class="nav_text">ai助手</h1>   
                     </div>
                 </a>
@@ -64,12 +67,24 @@
                     0px 0px 10px rgba(96, 105, 94, 0.7); background-color: #a4f2dc;align-items: center;">
             <div style="width: 100%; height: 1%; display: flex; align-items: center;margin-top: 2%;">
                 <h1 class="text1">亲爱的用户Flower下午好</h1>
-                <h1 class="text2">时间 天气</h1>
+                <h1 class="text2" id="time-weather">时间 天气</h1>
+                <script>
+                    function updateDateTime() {
+                        const now = new Date();
+                        const days = ['周日','周一','周二','周三','周四','周五','周六'];
+                        document.getElementById('time-weather').textContent = 
+                            `${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,'0')}-${String(now.getDate()).padStart(2,'0')} 
+                            ${days[now.getDay()]} ${String(now.getHours()).padStart(2,'0')}:${String(now.getMinutes()).padStart(2,'0')} 
+                            晴 25°C`;
+                    }
+                    updateDateTime();
+                    setInterval(updateDateTime, 60000);
+                </script>
             </div>
-            <div id="chat-container" style="height: 50%;width: 90%;background-color: rgba(255, 255, 255, 0.8);border-radius: 20px;margin-top: 10%;padding: 20px;overflow-y: auto;">
+            <div id="chat-container" style="height: 50%;width: 80%;background-color: rgba(255, 255, 255, 0.8);border-radius: 20px;margin-top: 10%;padding: 20px;overflow-y: auto;">
                 <div id="chat-messages"></div>
             </div>
-            <div style="height: 15%;width: 90%;background-color: rgba(255, 255, 255, 0.8);border-radius: 20px;margin-top: 5%;display: flex;align-items: center;justify-content: center;">
+            <div style="height: 15%;width: 80%;background-color: rgba(255, 255, 255, 0.8);border-radius: 20px;margin-top: 5%;display: flex;align-items: center;justify-content: center;">
                 <input id="user-input" type="text" style="width: 60%;height: 50%;border-radius: 10px;border: none;padding: 0 15px;font-size: 16px;" placeholder="输入你的养花问题...">
                 <button id="search-btn" style="width: 10%;height: 50%;margin-left: 10px;border-radius: 10px;border: none;background-color: #b3f8bb;color: white;font-weight: bold;cursor: pointer;">联网搜索</button>
                 <button id="deep-think-btn" style="width: 10%;height: 50%;margin-left: 10px;border-radius: 10px;border: none;background-color: #b3f8bb;color: white;font-weight: bold;cursor: pointer;">深度思考</button>
@@ -88,6 +103,20 @@
     word-break: keep-all;
 }
 
+a:hover div {
+    background-color: rgba(179, 248, 187, 0.3);
+    border-radius: 5px;
+    padding: 5px;
+}
+
+a:hover i {
+    color: #4CAF50 !important;
+}
+
+a:hover .nav_text {
+    color: #4CAF50;
+}
+
 .text1 {
     font-size: 20px;
     color: #ffffff;
@@ -103,6 +132,16 @@
     margin-left: 60%;
     word-break: keep-all;
     font-family: "宋体";
+}
+
+#search-btn, #deep-think-btn {
+    transition: all 0.2s ease;
+}
+
+#search-btn.selected, #deep-think-btn.selected {
+    background-color: #4CAF50 !important;
+    transform: scale(0.98);
+    box-shadow: 0 0 5px rgba(0,0,0,0.2);
 }
 
 #search-btn:active, #search-btn:focus,
@@ -126,6 +165,11 @@
             if (message) {
                 addMessage('user', `[联网搜索] ${message}`);
                 userInput.value = '';
+                
+                // Toggle selected state
+                searchBtn.classList.add('selected');
+                deepThinkBtn.classList.remove('selected');
+                
                 searchOnline(message);
             }
         });
@@ -135,6 +179,11 @@
             if (message) {
                 addMessage('user', `[深度思考] ${message}`);
                 userInput.value = '';
+                
+                // Toggle selected state
+                deepThinkBtn.classList.add('selected');
+                searchBtn.classList.remove('selected');
+                
                 deepThinking(message);
             }
         });
