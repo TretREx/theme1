@@ -66,28 +66,123 @@
                 <h1 class="text1">亲爱的用户Flower下午好</h1>
                 <h1 class="text2">时间 天气</h1>
             </div>
-            <div style="width:90%;height:40%;background-color:#ffffff;margin-top: 2%;border-radius: 10px;">
-
+            <div style="width:80%;height:40%;background-color:#ffffff;margin-top: 2%;border-radius: 10px; padding: 20px;">
+                <canvas id="environmentChart"></canvas>
             </div>
-            <div style="width:90%;height:20%;background-color:#ffffff;margin-top: 3%;border-radius: 10px;display: flex;">
-                <div style="width: 80%; height: 100%;background-color: rgba(227, 149, 167, 0.5);border-radius: 10px;">
-
+            <div style="width:80%;height:20%;background-color:#ffffff;margin-top: 1%;border-radius: 10px;display: flex;">
+                <div style="width: 80%; height: 90%;background-color: rgba(227, 149, 167, 0.5);border-radius: 10px; padding: 10px; overflow-y: auto;">
+                    <h3 style="color: #333; margin-bottom: 5px;">高温养护建议:</h3>
+                    <ul style="margin-top: 5px; padding-left: 20px;">
+                        <li>增加浇水频率，保持土壤湿润</li>
+                        <li>避免正午阳光直射，适当遮阴</li>
+                        <li>早晚各喷水一次增加空气湿度</li>
+                        <li>暂停施肥，避免烧根</li>
+                        <li>注意通风，防止病虫害</li>
+                    </ul>
                 </div>
-                <div style="width: 20%; height: 100%;background-color:rgba(227, 17, 66, 0.4);border-radius: 10px;">
-
+                <div style="width: 20%; height: 100%;background-color:rgba(227, 17, 66, 0.4);border-radius: 10px;
+                            display: flex; justify-content: center; align-items: center;">
+                    <h1> 高温时 </h1>
                 </div>
             </div>
-            <div style="width:90%;height:20%;margin-top: 2%;display: flex;">
-                <div style="width: 20%; height: 100%;background-color:rgba(29, 225, 212, 0.6);border-radius: 10px;">
-
+            <div style="width:80%;height:20%;margin-top: 1%;display: flex;">
+                <div style="width: 20%; height: 100%;background-color:rgba(29, 225, 212, 0.6);border-radius: 10px;
+                display: flex; justify-content: center; align-items: center;">
+                    <h1> 低温时 </h1>
                 </div>               
-                <div style="width: 80%; height: 100%;background-color:rgba(32, 227, 227, 0.4);border-radius: 10px;">
-
+                <div style="width: 80%; height: 90%;background-color:rgba(32, 227, 227, 0.4);border-radius: 10px; padding: 10px; overflow-y: auto;">
+                    <h3 style="color: #333; margin-bottom: 5px;">低温养护建议:</h3>
+                    <ul style="margin-top: 5px; padding-left: 20px;">
+                        <li>减少浇水频率，保持土壤微干</li>
+                        <li>移至室内或温暖处养护</li>
+                        <li>停止施肥，植物进入休眠期</li>
+                        <li>增加光照时间</li>
+                        <li>避免冷风直吹</li>
+                    </ul>
                 </div>
             </div>
         </div>
     </div>
 </body>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    // Sample data for demonstration
+    const labels = ['00:00', '03:00', '06:00', '09:00', '12:00', '15:00', '18:00', '21:00'];
+    
+    const ctx = document.getElementById('environmentChart').getContext('2d');
+    const chart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: labels,
+            datasets: [
+                {
+                    label: '空气温度 (°C)',
+                    data: [22, 21, 20, 23, 26, 28, 25, 23],
+                    borderColor: 'rgb(255, 99, 132)',
+                    backgroundColor: 'rgba(255, 99, 132, 0.1)',
+                    tension: 0.3
+                },
+                {
+                    label: '空气湿度 (%)',
+                    data: [65, 68, 70, 65, 60, 55, 60, 65],
+                    borderColor: 'rgb(54, 162, 235)',
+                    backgroundColor: 'rgba(54, 162, 235, 0.1)',
+                    tension: 0.3
+                },
+                {
+                    label: '土壤湿度 (%)',
+                    data: [40, 42, 45, 43, 40, 38, 42, 45],
+                    borderColor: 'rgb(75, 192, 192)',
+                    backgroundColor: 'rgba(75, 192, 192, 0.1)',
+                    tension: 0.3
+                },
+                {
+                    label: '二氧化碳 (ppm)',
+                    data: [400, 450, 500, 550, 600, 550, 500, 450],
+                    borderColor: 'rgb(153, 102, 255)',
+                    backgroundColor: 'rgba(153, 102, 255, 0.1)',
+                    tension: 0.3
+                },
+                {
+                    label: '光照强度 (lux)',
+                    data: [0, 0, 200, 1000, 1500, 1200, 500, 100],
+                    borderColor: 'rgb(255, 206, 86)',
+                    backgroundColor: 'rgba(255, 206, 86, 0.1)',
+                    tension: 0.3
+                },
+                {
+                    label: '水位高度 (cm)',
+                    data: [15, 15, 14, 14, 13, 13, 14, 15],
+                    borderColor: 'rgb(255, 159, 64)',
+                    backgroundColor: 'rgba(255, 159, 64, 0.1)',
+                    tension: 0.3
+                }
+            ]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+                y: {
+                    beginAtZero: false
+                }
+            },
+            plugins: {
+                title: {
+                    display: true,
+                    text: '环境数据统计',
+                    font: {
+                        size: 18
+                    }
+                },
+                legend: {
+                    position: 'bottom'
+                }
+            }
+        }
+    });
+</script>
 
 <style>
 .nav_text {

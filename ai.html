@@ -66,9 +66,14 @@
                 <h1 class="text1">亲爱的用户Flower下午好</h1>
                 <h1 class="text2">时间 天气</h1>
             </div>
-            <div style="height: 50%;width: 90%;background-color: rgba(20, 13, 13, 0.3);border-radius: 20px;margin-top: 10%;">
+            <div id="chat-container" style="height: 50%;width: 90%;background-color: rgba(255, 255, 255, 0.8);border-radius: 20px;margin-top: 10%;padding: 20px;overflow-y: auto;">
+                <div id="chat-messages"></div>
             </div>
-            <div style="height: 15%;width: 90%;background-color: rgba(20, 13, 13, 0.3);border-radius: 20px;margin-top: 5%;">
+            <div style="height: 15%;width: 90%;background-color: rgba(255, 255, 255, 0.8);border-radius: 20px;margin-top: 5%;display: flex;align-items: center;justify-content: center;">
+                <input id="user-input" type="text" style="width: 60%;height: 50%;border-radius: 10px;border: none;padding: 0 15px;font-size: 16px;" placeholder="输入你的养花问题...">
+                <button id="search-btn" style="width: 10%;height: 50%;margin-left: 10px;border-radius: 10px;border: none;background-color: #b3f8bb;color: white;font-weight: bold;cursor: pointer;">联网搜索</button>
+                <button id="deep-think-btn" style="width: 10%;height: 50%;margin-left: 10px;border-radius: 10px;border: none;background-color: #b3f8bb;color: white;font-weight: bold;cursor: pointer;">深度思考</button>
+                <button id="send-btn" style="width: 10%;height: 50%;margin-left: 10px;border-radius: 10px;border: none;background-color: #b3f8bb;color: white;font-weight: bold;cursor: pointer;">发送</button>
             </div>
         </div>
     </div>
@@ -99,5 +104,309 @@
     word-break: keep-all;
     font-family: "宋体";
 }
+
+#search-btn:active, #search-btn:focus,
+#deep-think-btn:active, #deep-think-btn:focus {
+    background-color: #4CAF50 !important;
+    transform: scale(0.98);
+}
 </style>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const chatMessages = document.getElementById('chat-messages');
+        const userInput = document.getElementById('user-input');
+        const sendBtn = document.getElementById('send-btn');
+        const searchBtn = document.getElementById('search-btn');
+        const deepThinkBtn = document.getElementById('deep-think-btn');
+        const DEEPSEEK_API_KEY = 'sk-6b786162a90645e29021fa3d8458a180';
+
+        // 添加按钮事件监听
+        searchBtn.addEventListener('click', () => {
+            const message = userInput.value.trim();
+            if (message) {
+                addMessage('user', `[联网搜索] ${message}`);
+                userInput.value = '';
+                searchOnline(message);
+            }
+        });
+
+        deepThinkBtn.addEventListener('click', () => {
+            const message = userInput.value.trim();
+            if (message) {
+                addMessage('user', `[深度思考] ${message}`);
+                userInput.value = '';
+                deepThinking(message);
+            }
+        });
+
+        // Add welcome message
+        addMessage('assistant', '你好！我是DeepSeek养花助手，有什么关于养花的问题都可以问我哦~');
+
+        sendBtn.addEventListener('click', sendMessage);
+        userInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') sendMessage();
+        });
+
+        async function sendMessage() {
+            const message = userInput.value.trim();
+            if (message) {
+                addMessage('user', message);
+                userInput.value = '';
+                sendBtn.disabled = true;
+                
+                // Add loading indicator
+                const loadingDiv = document.createElement('div');
+                loadingDiv.id = 'loading';
+                loadingDiv.textContent = '思考中...';
+                loadingDiv.style.fontStyle = 'italic';
+                loadingDiv.style.color = '#666';
+                chatMessages.appendChild(loadingDiv);
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+                
+                try {
+                    // Call DeepSeek API
+                    const response = await fetch('https://api.deepseek.com/v1/chat/completions', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': `Bearer ${DEEPSEEK_API_KEY}`
+                        },
+                        body: JSON.stringify({
+                            model: "deepseek-chat",
+                            messages: [{
+                                role: "system",
+                                content: "你是一个专业的养花助手，专门回答关于植物养护、花卉种植、病虫害防治等问题。回答要专业且简洁。"
+                            }, {
+                                role: "user",
+                                content: message
+                            }],
+                            temperature: 0.7,
+                            stream: true
+                        })
+                    });
+
+                    // Remove loading indicator
+                    document.getElementById('loading').remove();
+                    
+                    // Create assistant message container
+                    const assistantMessage = document.createElement('div');
+                    assistantMessage.style.margin = '10px 0';
+                    assistantMessage.style.padding = '10px';
+                    assistantMessage.style.borderRadius = '10px';
+                    assistantMessage.style.backgroundColor = '#f1f1f1';
+                    assistantMessage.style.maxWidth = '80%';
+                    assistantMessage.style.wordBreak = 'break-word';
+                    assistantMessage.style.alignSelf = 'flex-start';
+                    chatMessages.appendChild(assistantMessage);
+                    
+                    // Stream the response
+                    const reader = response.body.getReader();
+                    const decoder = new TextDecoder();
+                    let done = false;
+                    
+                    while (!done) {
+                        const {value, done: streamDone} = await reader.read();
+                        done = streamDone;
+                        
+                        if (value) {
+                            const chunk = decoder.decode(value);
+                            const lines = chunk.split('\n');
+                            
+                            for (const line of lines) {
+                                if (line.startsWith('data:') && !line.includes('[DONE]')) {
+                                    try {
+                                        const data = JSON.parse(line.substring(5));
+                                        if (data.choices[0].delta?.content) {
+                                            assistantMessage.textContent += data.choices[0].delta.content;
+                                            chatMessages.scrollTop = chatMessages.scrollHeight;
+                                        }
+                                    } catch (e) {
+                                        console.error('Error parsing stream data:', e);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                } catch (error) {
+                    document.getElementById('loading')?.remove();
+                    addMessage('assistant', '抱歉，处理您的请求时出错。错误: ' + 
+                        (error.message || '请检查网络连接后重试'));
+                    console.error('API Error:', error);
+                } finally {
+                    sendBtn.disabled = false;
+                }
+            }
+        }
+
+        async function searchOnline(query) {
+            addMessage('assistant', '正在联网搜索最新养花知识...');
+            try {
+                const response = await fetch('https://api.deepseek.com/v1/chat/completions', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${DEEPSEEK_API_KEY}`
+                    },
+                    body: JSON.stringify({
+                        model: "deepseek-chat",
+                        messages: [{
+                            role: "system", 
+                            content: "你是一个专业的养花助手，请联网搜索最新最权威的养花知识来回答用户问题。"
+                        }, {
+                            role: "user",
+                            content: query
+                        }],
+                        temperature: 0.7,
+                        stream: true
+                    })
+                });
+
+                // Create assistant message container
+                const assistantMessage = document.createElement('div');
+                assistantMessage.style.margin = '10px 0';
+                assistantMessage.style.padding = '10px';
+                assistantMessage.style.borderRadius = '10px';
+                assistantMessage.style.backgroundColor = '#f1f1f1';
+                assistantMessage.style.maxWidth = '80%';
+                assistantMessage.style.wordBreak = 'break-word';
+                assistantMessage.style.alignSelf = 'flex-start';
+                chatMessages.appendChild(assistantMessage);
+
+                // Stream the response
+                const reader = response.body.getReader();
+                const decoder = new TextDecoder();
+                let done = false;
+                
+                while (!done) {
+                    const {value, done: streamDone} = await reader.read();
+                    done = streamDone;
+                    
+                    if (value) {
+                        const chunk = decoder.decode(value);
+                        const lines = chunk.split('\n');
+                        
+                        for (const line of lines) {
+                            if (line.startsWith('data:') && !line.includes('[DONE]')) {
+                                try {
+                                    const data = JSON.parse(line.substring(5));
+                                    if (data.choices[0].delta?.content) {
+                                        assistantMessage.textContent += data.choices[0].delta.content;
+                                        chatMessages.scrollTop = chatMessages.scrollHeight;
+                                    }
+                                } catch (e) {
+                                    console.error('Error parsing stream data:', e);
+                                }
+                            }
+                        }
+                    }
+                }
+            } catch (error) {
+                addMessage('assistant', '联网搜索失败: ' + (error.message || '请检查网络连接'));
+                console.error('Search Error:', error);
+            }
+        }
+
+        async function deepThinking(query) {
+            addMessage('assistant', '正在深入思考您的问题...');
+            try {
+                const response = await fetch('https://api.deepseek.com/v1/chat/completions', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${DEEPSEEK_API_KEY}`
+                    },
+                    body: JSON.stringify({
+                        model: "deepseek-chat",
+                        messages: [{
+                            role: "system",
+                            content: "你是一个专业的养花助手，请从多个角度深入分析用户的问题，提供全面详细的解答。"
+                        }, {
+                            role: "user",
+                            content: query
+                        }],
+                        temperature: 0.9,
+                        stream: true
+                    })
+                });
+
+                // Create assistant message container
+                const assistantMessage = document.createElement('div');
+                assistantMessage.style.margin = '10px 0';
+                assistantMessage.style.padding = '10px';
+                assistantMessage.style.borderRadius = '10px';
+                assistantMessage.style.backgroundColor = '#f1f1f1';
+                assistantMessage.style.maxWidth = '80%';
+                assistantMessage.style.wordBreak = 'break-word';
+                assistantMessage.style.alignSelf = 'flex-start';
+                chatMessages.appendChild(assistantMessage);
+
+                // Stream the response
+                const reader = response.body.getReader();
+                const decoder = new TextDecoder();
+                let done = false;
+                
+                while (!done) {
+                    const {value, done: streamDone} = await reader.read();
+                    done = streamDone;
+                    
+                    if (value) {
+                        const chunk = decoder.decode(value);
+                        const lines = chunk.split('\n');
+                        
+                        for (const line of lines) {
+                            if (line.startsWith('data:') && !line.includes('[DONE]')) {
+                                try {
+                                    const data = JSON.parse(line.substring(5));
+                                    if (data.choices[0].delta?.content) {
+                                        assistantMessage.textContent += data.choices[0].delta.content;
+                                        chatMessages.scrollTop = chatMessages.scrollHeight;
+                                    }
+                                } catch (e) {
+                                    console.error('Error parsing stream data:', e);
+                                }
+                            }
+                        }
+                    }
+                }
+            } catch (error) {
+                addMessage('assistant', '深度思考失败: ' + (error.message || '请稍后再试'));
+                console.error('Deep Thinking Error:', error);
+            }
+        }
+
+        function addMessage(sender, text) {
+            const messageDiv = document.createElement('div');
+            messageDiv.style.margin = '10px 0';
+            messageDiv.style.padding = '10px';
+            messageDiv.style.borderRadius = '10px';
+            messageDiv.style.backgroundColor = sender === 'user' ? '#e3f2fd' : '#f1f1f1';
+            messageDiv.style.maxWidth = '80%';
+            messageDiv.style.wordBreak = 'break-word';
+            messageDiv.style.alignSelf = sender === 'user' ? 'flex-end' : 'flex-start';
+            messageDiv.style.position = 'relative';
+            messageDiv.style.paddingLeft = sender === 'assistant' ? '40px' : '10px';
+            
+            if (sender === 'assistant') {
+                const logo = document.createElement('div');
+                logo.style.position = 'absolute';
+                logo.style.left = '10px';
+                logo.style.top = '10px';
+                logo.style.width = '24px';
+                logo.style.height = '24px';
+                logo.style.backgroundImage = 'url(https://deepseek.com/favicon.ico)';
+                logo.style.backgroundSize = 'contain';
+                logo.style.backgroundRepeat = 'no-repeat';
+                messageDiv.appendChild(logo);
+            }
+            
+            const content = document.createElement('div');
+            content.textContent = text;
+            content.style.marginLeft = sender === 'assistant' ? '10px' : '0';
+            messageDiv.appendChild(content);
+            
+            chatMessages.appendChild(messageDiv);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+    });
+</script>
 </html>

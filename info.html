@@ -2,6 +2,7 @@
 <html>
 <head>
 	<title>我的主页</title>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
 	<div style="display: flex; width: 100%; height: 100%;">
@@ -117,22 +118,22 @@
                     </div>
                 </div>
                 <div style="width: 45%; height: 85%; margin-left: 3%; display: flex; flex-direction: column;
-                            background-color: #ffffff; margin-top: 5%; border-radius: 15px;
+                            background-color: rgba(255, 255, 255, 0.7); margin-top: 5%; border-radius: 15px;
                              box-shadow: 0px 0px 10px rgba(96, 105, 94, 0.7);align-items:center">
                     <div style="margin-top: 2%;">
                         <h1 class="suggestion_text0">养护建议</h1>
                     </div>   
                     <div style="display: grid; justify-content: center; align-items: center;
                      grid-template-columns: repeat(3, 1fr); width: 80%; height: 80%; margin-top: 5%; margin-left: 5%;">
-                        <div class="suggestion_div1"></div>
-                        <div class="suggestion_div1"></div>
-                        <div class="suggestion_div1"></div>
-                        <div class="suggestion_div1"></div>
-                        <div class="suggestion_div1"></div>
-                        <div class="suggestion_div1"></div>
-                        <div class="suggestion_div1"></div>
-                        <div class="suggestion_div1"></div>
-                        <div class="suggestion_div1"></div>  
+                        <div class="suggestion_div1"><i class="fas fa-tint fa-3x" style="color: #0d8abb;"></i><p>浇水</p></div>
+                        <div class="suggestion_div1"><i class="fas fa-sun fa-3x" style="color: #ffcc00;"></i><p>光照</p></div>
+                        <div class="suggestion_div1"><i class="fas fa-temperature-high fa-3x" style="color: #ff6666;"></i><p>温度</p></div>
+                        <div class="suggestion_div1"><i class="fas fa-wind fa-3x" style="color: #66ccff;"></i><p>通风</p></div>
+                        <div class="suggestion_div1"><i class="fas fa-seedling fa-3x" style="color: #66cc66;"></i><p>施肥</p></div>
+                        <div class="suggestion_div1"><i class="fas fa-cut fa-3x" style="color: #996633;"></i><p>修剪</p></div>
+                        <div class="suggestion_div1"><i class="fas fa-bug fa-3x" style="color: #993333;"></i><p>防虫</p></div>
+                        <div class="suggestion_div1"><i class="fas fa-spa fa-3x" style="color: #cc99ff;"></i><p>换盆</p></div>
+                        <div class="suggestion_div1"><i class="fas fa-clipboard-check fa-3x" style="color: #0d8abb;"></i><p>检查</p></div>  
                     </div>            
                 </div>   
             </div>
@@ -205,11 +206,23 @@
 }
 
 .suggestion_div1 {
-    background-color: #9f9999;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color:rgba(255, 255, 255, 0);
     width: 125px;
     height: 125px;
-    box-shadow: 0px 0px 10px rgba(71, 79, 73, 0.7);
-    border-radius: 2%;
+    box-shadow: 0px 0px 10px rgba(156, 180, 162, 0);
+    border-radius: 10%;
+    margin: 5px;
+}
+
+.suggestion_div1 p {
+    margin-top: 10px;
+    font-size: 16px;
+    color: #595959;
+    font-family: "宋体";
 }
 
 .data_text_div{
